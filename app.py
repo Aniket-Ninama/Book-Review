@@ -5,7 +5,6 @@ from extension import db
 from dotenv import load_dotenv
 import os
 import requests
-from flask_gravatar import Gravatar
 import smtplib
 from email.mime.text import MIMEText
 from models import Books, Registered_Users
@@ -21,14 +20,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = os.getenv("Secret_key")
 db.init_app(app)
 bcrypt = Bcrypt(app)
-gravatar = Gravatar(app,
-                    size=100,
-                    rating='g',
-                    default='retro',
-                    force_default=False,
-                    force_lower=False,
-                    use_ssl=False,
-                    base_url=None)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
