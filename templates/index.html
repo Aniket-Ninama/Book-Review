@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Home - BookReview{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+  <h1 class="text-3xl mb-6 text-white dark:text-gray-900">Your Book Collection</h1>
+
+   {% if user_books %}
+    <div class="container mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {% for book in user_books %}
+          <div class="bg-white p-4 shadow-md rounded-lg flex flex-col justify-between h-full">
+              <div>
+                {% if book.book_img %}
+                <img class="h-48 w-full object-contain object-center mb-4 rounded bg-white" src="{{ book.book_img }}" alt="Book cover">
+                {%  else %}
+                <img class="h-48 w-full object-contain object-center mb-4 rounded bg-white" src="{{ url_for('static', filename='images/NOT_AVAILABLE.png') }}" alt="Book cover">
+                {%  endif %}
+                <h3 class="text-lg text-indigo-500 font-semibold mb-1 min-h-[3rem]">
+                  {{ book.title }}
+                </h3>
+
+                <h2 class="text-sm text-gray-800 font-bold mb-1">
+                  {{ book.author }}
+                </h2>
+
+                <p class="text-gray-600 text-sm mb-1">Read by: {{ book.download_count }}</p>
+              </div>
+
+              <div class="text-center mt-auto pt-2">
+                  <a href="{{ url_for('remove_book_page', book_id=book.id) }}"
+                    class="inline-block w-full text-center bg-red-600 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700 text-white font-semibold py-2 px-4 rounded shadow-md transition duration-300">
+                    Remove
+                  </a>
+                </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <p class="text-gray-700 dark:text-gray-400">No books found. Add some to your collection!</p>
+  {% endif %}
+  <div class="mt-8 text-center">
+    <a href="{{ url_for('explore_page') }}"
+    class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded  shadow-md transition duration-300">
+    Add Book
+    </a>
+  </div>
+</div>
+
+{% endblock %}
+

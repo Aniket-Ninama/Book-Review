@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - BookReview{% endblock %}
+
+{% block content %}
+    <h1 class="ml-[110px] text-3xl">Explore - Books</h1>
+
+    <div class="w-full max-w-md mx-auto">
+      <form class="flex items-center border border-gray-300 rounded-lg overflow-hidden shadow-sm" action="{{ url_for('explore_page') }}" method="post">
+        <input
+          type="text"
+          placeholder="Search books..."
+          name="book_name"
+          class="w-full h-full px-4 py-2 text-sm text-gray-700
+         focus:outline-none "
+        />
+        <button
+          type="submit"
+          class="bg-blue-600 text-white px-4 py-2 hover:bg-blue-700 transition"
+        >
+          <i class="fas fa-magnifying-glass"></i>
+        </button>
+      </form>
+    </div>
+
+    {% if books %}
+    <div class="container mx-auto px-4 py-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {% for book in books %}
+          <div class="bg-white p-4 shadow-md rounded-lg flex flex-col justify-between h-full">
+              <div>
+                {% if book['formats']['image/jpeg'] %}
+                <img class="h-48 w-full object-contain object-center mb-4 rounded bg-white" src="{{ book['formats']['image/jpeg'] }}" alt="Book Cover">
+                {%  else %}
+                <img class="h-48 w-full object-contain object-center mb-4 rounded bg-white" src="{{ url_for('static', filename='images/NOT_AVAILABLE.png') }}" alt="Book Cover">
+                {%  endif %}
+                <h3 class="text-lg text-indigo-500 font-semibold mb-1 min-h-[3rem]">
+                  {{ book['title'].replace(';',',').replace(',','') }}
+                </h3>
+
+                <h2 class="text-sm text-gray-800 font-bold mb-1">
+                  {{ book['authors'][0]['name'] if book['authors'] else 'Unknown' }}
+                </h2>
+
+                <p class="text-gray-600 text-sm mb-1">Read by: {{ book['download_count'] }}</p>
+              </div>
+
+              <div class="text-center mt-auto pt-2">
+                <a href="{{ url_for('add_book_page', title=book['title'], author=book['authors'][0]['name'], img=book['formats']['image/jpeg'], downloads=book['download_count']) }}"
+                  class="inline-block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded shadow-md transition duration-300">
+                  Add Book
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <p class="text-red-600 text-center text-lg font-semibold mt-4">
+      No results found for "{{ book_name }}"
+    </p>
+    {% endif %}
+{% endblock%}
