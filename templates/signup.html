@@ -1,68 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Signup - BookReview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div class="flex items-center h-16 w-full sticky top-0 z-50 shadow-md bg-white">
-  <h1 class="text-blue-600 text-2xl ml-6 sm:ml-[124px]">📚 BookReview</h1>
-</div>
-{% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-            <p class="text-red-700 text-center mt-10">
-              {{ message }}
-            </p>
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-<div class="bg-[#DFE7EF] rounded-lg shadow-lg flex flex-col md:flex-row max-w-4xl w-full p-6 sm:p-8 mx-auto my-10 sm:my-[40px]">
-  <!-- Left: Image -->
-  <div class="w-full md:w-1/2 flex items-center justify-center mb-6 md:mb-0">
-    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="Signup Illustration" class="w-40 h-40 sm:w-64 sm:h-64">
+<body class="font-[Poppins] bg-gray-100">
+
+  <!-- Navbar -->
+  <div class="flex items-center h-16 w-full sticky top-0 z-50 shadow-md bg-white">
+    <h1 class="text-blue-600 text-xl sm:text-2xl ml-4 sm:ml-[124px]">📚 BookReview</h1>
   </div>
 
-  <!-- Right: Form -->
-  <div class="w-full md:w-1/2 flex flex-col justify-center px-2 sm:px-4">
-    <h2 class="text-xl sm:text-2xl mb-6 text-gray-800 text-center">Create Account</h2>
+  <!-- Flash messages -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        <p class="text-red-700 text-center mt-6 text-sm sm:text-base">
+          {{ message }}
+        </p>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
 
-    <form action="{{ url_for('signup_page') }}" method="POST" class="space-y-4">
-      <div class="flex items-center border rounded-full px-4 py-2 bg-gray-100">
-        <svg class="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 0112 0H4z"/>
-        </svg>
-        <input type="text" name="name" placeholder="Full Name" required class="bg-gray-100 outline-none flex-1 text-sm">
-      </div>
+  <!-- Signup Container -->
+  <div class="bg-[#DFE7EF] rounded-lg shadow-lg flex flex-col md:flex-row max-w-4xl w-[90%] md:w-full p-4 sm:p-8 mx-auto my-8">
 
-      <div class="flex items-center border rounded-full px-4 py-2 bg-gray-100">
-        <svg class="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M2 10a8 8 0 1116 0A8 8 0 012 10zm8-3a3 3 0 100 6 3 3 0 000-6zm0 8c-2.21 0-4.2-.9-5.6-2.35A6.96 6.96 0 0110 12c1.66 0 3.16.57 4.35 1.52A6.96 6.96 0 0110 15z"/>
-        </svg>
-        <input type="email" name="email" placeholder="Email" required class="bg-gray-100 outline-none flex-1 text-sm">
-      </div>
-
-      <div class="flex items-center border rounded-full px-4 py-2 bg-gray-100">
-        <svg class="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm-2 4a2 2 0 114 0v2H8V6z"/>
-        </svg>
-        <input type="password" name="password" placeholder="Password" required class="bg-gray-100 outline-none flex-1 text-sm">
-      </div>
-
-      <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-full transition text-sm">SIGN UP</button>
-    </form>
-
-    <div class="text-center mt-4">
-      <a href="{{ url_for('login_page') }}" class="text-xs sm:text-sm text-gray-700 hover:underline">Already have an account? Login →</a>
+    <!-- Left: Image -->
+    <div class="w-full md:w-1/2 flex items-center justify-center mb-6 md:mb-0">
+      <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png" alt="Signup Illustration" class="w-28 h-28 sm:w-48 sm:h-48 md:w-64 md:h-64">
     </div>
+
+    <!-- Right: Form -->
+    <div class="w-full md:w-1/2 flex flex-col justify-center px-2 sm:px-6">
+      <h2 class="text-lg sm:text-2xl mb-4 text-gray-800 text-center font-semibold">Create Account</h2>
+
+      <form action="{{ url_for('signup_page') }}" method="POST" class="space-y-4">
+
+        <!-- Full Name -->
+        <div class="flex items-center border rounded-full px-4 py-2 bg-gray-100">
+          <svg class="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm-6 8a6 6 0 0112 0H4z"/>
+          </svg>
+          <input type="text" name="name" placeholder="Full Name" required class="bg-gray-100 outline-none flex-1 text-sm" />
+        </div>
+
+        <!-- Email -->
+        <div class="flex items-center border rounded-full px-4 py-2 bg-gray-100">
+          <svg class="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M2 10a8 8 0 1116 0A8 8 0 012 10zm8-3a3 3 0 100 6 3 3 0 000-6zm0 8c-2.21 0-4.2-.9-5.6-2.35A6.96 6.96 0 0110 12c1.66 0 3.16.57 4.35 1.52A6.96 6.96 0 0110 15z"/>
+          </svg>
+          <input type="email" name="email" placeholder="Email" required class="bg-gray-100 outline-none flex-1 text-sm" />
+        </div>
+
+        <!-- Password -->
+        <div class="flex items-center border rounded-full px-4 py-2 bg-gray-100">
+          <svg class="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a4 4 0 00-4 4v2H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-1V6a4 4 0 00-4-4zm-2 4a2 2 0 114 0v2H8V6z"/>
+          </svg>
+          <input type="password" name="password" placeholder="Password" required class="bg-gray-100 outline-none flex-1 text-sm" />
+        </div>
+
+        <!-- Signup Button -->
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded-full transition text-sm">SIGN UP</button>
+      </form>
+
+      <div class="text-center mt-4">
+        <a href="{{ url_for('login_page') }}" class="text-xs sm:text-sm text-gray-700 hover:underline">Already have an account? Login →</a>
+      </div>
     </div>
   </div>
 
+  <!-- Footer -->
   <footer class="text-white py-4 text-center shadow-inner">
     <p class="text-sm text-gray-500">© 2025 BookReview App — Built by Aniket</p>
   </footer>
